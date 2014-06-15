@@ -1,0 +1,4 @@
+{
+    "preset": "google",
+    "excludeFiles": ["js/lib/**","js/*.min.js","Gruntfile.js"]
+}

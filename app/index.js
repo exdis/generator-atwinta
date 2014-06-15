@@ -24,6 +24,11 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     this.log(yosay('Добро пожаловать в генератор нового проекта Atwinta!'));
 
     var prompts = [{
+      type: 'input',
+      name: 'project',
+      message: 'Введи название проекта:',
+      default: 'Atwinta new project'
+    },{
       type: 'confirm',
       name: 'images',
       message: 'Включить поддержку обработки изображений?',
@@ -31,6 +36,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
+        this.project = props.project;
         this.images = props.images;
 
         done();
@@ -72,17 +78,24 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     }
   },
 
-  app: function () {
-    this.mkdir('app');
-    this.mkdir('app/templates');
-
-    this.copy('_package.json', 'package.json');
-    this.copy('_bower.json', 'bower.json');
+  sass: function () {
+    this.mkdir('sass');
+    this.copy('sass/_screen.scss','sass/screen.scss');
+    this.copy('_config.rb','config.rb');
   },
 
-  projectfiles: function () {
-    this.copy('editorconfig', '.editorconfig');
-    this.copy('jshintrc', '.jshintrc');
+  js: function () {
+    this.mkdir('js');
+    this.copy('js/_app.js','js/app.js');
+    this.copy('js/_main.js','js/main.js');
+    this.copy('_.bowerrc','.bowerrc');
+    this.copy('_bower.json','bower.json');
+    this.copy('_.jscsrc','.jscsrc');
+  },
+
+  app: function () {
+    this.copy('_.hgignore','.hgignore');
+    this.copy('_index.html','index.html');
   }
 });
 
