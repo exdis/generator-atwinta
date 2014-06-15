@@ -1,6 +1,8 @@
 {
-  "name": "package",
-  "version": "0.0.0",
-  "dependencies": {}
+	"name" : "Atwinta new project",
+	"version" : "1.0.0",
+	"dependencies" : {
+		"jquery" : null,
+		"requirejs" : null	
+	}
 }
-
