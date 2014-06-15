@@ -37,6 +37,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
 
     this.prompt(prompts, function (props) {
         this.project = props.project;
+        this.projectPackage = props.project.replace(/[^\w\s]/gi, '').toLowerCase().split(' ').join('-');
         this.images = props.images;
 
         done();
@@ -84,6 +85,11 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     this.copy('_config.rb','config.rb');
   },
 
+  stylesheets: function() {
+    this.mkdir('stylesheets');
+    this.mkdir('css');
+  },
+
   js: function () {
     this.mkdir('js');
     this.copy('js/_app.js','js/app.js');
@@ -95,6 +101,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.copy('_.hgignore','.hgignore');
+    this.copy('_package.json','package.json');
     this.copy('_index.html','index.html');
   }
 });
