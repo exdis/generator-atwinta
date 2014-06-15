@@ -133,6 +133,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.copy('_.hgignore','.hgignore');
+    this.copy('_Gruntfile.js','Gruntfile.js');
     this.copy('_index.html','index.html');
   }
 });
