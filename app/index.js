@@ -79,6 +79,38 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     }
   },
 
+  packageJson: function () {
+    var projectName = this.projectPackage;
+    var gruntDeps = {
+        "grunt" : "latest",
+        "grunt-notify" : "latest",
+        "grunt-contrib-jshint" : "latest",
+        "grunt-contrib-concat" : "latest",
+        "grunt-contrib-uglify" : "latest",
+        "grunt-contrib-cssmin" : "latest",
+        "grunt-contrib-compass" : "latest",
+        "grunt-contrib-watch" : "latest",
+        "grunt-remove-logging" : "latest",
+        "grunt-jscs-checker" : "latest"
+    };
+    if(this.sprite) {
+        gruntDeps["grunt-spritesmith"] = "latest";
+    }
+    if(this.base64) {
+        gruntDeps["grunt-image-embed"] = "latest";
+    }
+    if(this.retina) {
+        gruntDeps["grunt-contrib-clean"] = "latest";
+        gruntDeps["grunt-responsive-images"] = "latest";
+    }
+    var pkg = {
+        "name": projectName,
+        "version": "0.0.1",
+        "devDependencies": gruntDeps
+    }
+    this.write('package.json',JSON.stringify(pkg));
+  },
+
   sass: function () {
     this.mkdir('sass');
     this.copy('sass/_screen.scss','sass/screen.scss');
@@ -101,7 +133,6 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.copy('_.hgignore','.hgignore');
-    this.copy('_package.json','package.json');
     this.copy('_index.html','index.html');
   }
 });
