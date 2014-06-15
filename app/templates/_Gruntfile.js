@@ -95,7 +95,7 @@ module.exports = function(grunt) {
             <% if (images) { %>
             images : {
                 files : ['img/ui/<%= retina ? "normal/" : ""%>*.png'],
-                tasks : [<% retina ? "'clean','responsive_images'," : ""%><% sprite ? "'sprite'" : ""%>],
+                tasks : [<%= retina ? "'clean','responsive_images'," : ""%><%= sprite ? "'sprite'" : ""%>],
                 options: {
                     livereload: true,
                 }
@@ -162,7 +162,7 @@ module.exports = function(grunt) {
 	        <% } %>
             normal: {
                 padding: 40,
-                src: 'img/ui/*.png',
+                src: 'img/ui/<%= retina ? "normal/" : ""%>*.png',
                 destImg: 'img/ui.png',
                 destCSS: 'sprites/_ui.scss',
             }
@@ -209,9 +209,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-remove-logging');
     grunt.loadNpmTasks('grunt-notify');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-jscs-checker');
-    grunt.loadNpmTasks('grunt-scss-lint');
     <%if (retina) { %>
     grunt.loadNpmTasks('grunt-responsive-images');
     grunt.loadNpmTasks('grunt-contrib-clean');

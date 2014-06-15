@@ -39,6 +39,11 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
         this.project = props.project;
         this.projectPackage = props.project.replace(/[^\w\s]/gi, '').toLowerCase().split(' ').join('-');
         this.images = props.images;
+        if(!props.images) {
+            this.sprite = false;
+            this.base64 = false;
+            this.retina = false;
+        }
 
         done();
     }.bind(this));
@@ -129,6 +134,24 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     this.copy('_.bowerrc','.bowerrc');
     this.copy('_bower.json','bower.json');
     this.copy('_.jscsrc','.jscsrc');
+  },
+
+  images: function () {
+    if(this.images) {
+        this.mkdir('img');
+        if(this.base64) {
+            this.mkdir('img/base64');
+            this.copy('_base64.css','img/base64/base64.css');
+        }
+        this.mkdir('img/ui');
+        if(this.retina) {
+            this.mkdir('img/ui/retina');        
+            this.mkdir('img/ui/normal');
+        }
+        if(this.sprite) {
+            this.mkdir('sprites');
+        }
+    }
   },
 
   app: function () {
