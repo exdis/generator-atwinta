@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
     concat: {
       css : {
-        src: ['stylesheets/*','src/css/*'],
+        src: ['stylesheets/*', 'src/css/*'],
         dest: 'css/style.css'
       }
     },
@@ -43,7 +43,7 @@ module.exports = function(grunt) {
       build : {
         files : [{
           expand : true,
-          src : ['*.js','!lib/**/*.js','!*.min.js'],
+          src : ['*.js', '!lib/**/*.js', '!*.min.js'],
           dest : 'js',
           cwd : 'js',
           ext : '.min.js'
@@ -57,7 +57,7 @@ module.exports = function(grunt) {
           banner : '/* Styles for <%= pkg.name %> */',
         },
         files : {
-          'css/style.min.css' : ['src/css/*','stylesheets/*']
+          'css/style.min.css' : ['src/css/*', 'stylesheets/*']
         }
       }
     },
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
 
     watch : {
       scripts : {
-        files : ['js/*.js','!js/lib/**/*.js','!js/*.min.js'],
+        files : ['js/*.js', '!js/lib/**/*.js', '!js/*.min.js'],
         tasks : ['jshint', 'jscs', 'uglify'],
         options: {
           livereload: true,
@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       },
       sass : {
         files : ['sass/*'],
-        tasks : ['compass','concat','cssmin'],
+        tasks : ['compass', 'concat', 'cssmin'],
         options: {
           livereload: true,
         }
@@ -92,24 +92,24 @@ module.exports = function(grunt) {
           livereload: true,
         }
       },
-      <% if (images) { %>
+<% if (images) { %>
       images : {
         files : ['img/ui/<%= retina ? "normal/" : ""%>*.png'],
-        tasks : [<%= retina ? "'clean','responsive_images'," : ""%><%= sprite ? "'sprite'" : ""%>],
+        tasks : [<%= retina ? "'clean', 'responsive_images', " : ""%><%= sprite ? "'sprite'" : ""%>],
         options: {
           livereload: true,
         }
       },
-      <% } %>
-      <% if (base64) { %>
+<% } %>
+<% if (base64) { %>
       base64 : {
         files : ['img/base64/base64.css'],
-        tasks : ['imageEmbed','concat','cssmin'],
+        tasks : ['imageEmbed', 'concat', 'cssmin', 'comapss'],
         options: {
           livereload: true,
         }
       },
-      <% } %>
+<% } %>
       html : {
         files : ['**/*.html'],
         options: {
@@ -125,10 +125,10 @@ module.exports = function(grunt) {
     },
 
     jscs : {
-      main : ['js/*.js','!js/lib/**.js', 'js/*.min.js']
+      main : ['js/*.js', '!js/lib/**.js', '!js/*.min.js']
     },
   
-    <% if (retina) { %>
+<% if (retina) { %>
     responsive_images: {
       ui: {
         options: {
@@ -148,18 +148,17 @@ module.exports = function(grunt) {
         }]
       }
     },
-    <% } %>
-
-    <% if (sprite) { %>
+<% } %>
+<% if (sprite) { %>
     sprite: {
-      <% if (retina) { %>
+<% if (retina) { %>
       retina: {
         padding: 40,
         src: 'img/ui/retina/*.png',
         destImg: 'img/ui_2x.png',
         destCSS: 'sprites/_ui_2x.scss',
       },
-      <% } %>
+<% } %>
       normal: {
         padding: 40,
         src: 'img/ui/<%= retina ? "normal/" : ""%>*.png',
@@ -167,9 +166,8 @@ module.exports = function(grunt) {
         destCSS: 'sprites/_ui.scss',
       }
     },
-    <% } %>
-
-    <% if (base64) { %>
+<% } %>
+<% if (base64) { %>
 
     imageEmbed: {
       dist: {
@@ -180,19 +178,15 @@ module.exports = function(grunt) {
         }
       }
     },
-
-    <% } %>
-    <% if (retina) { %>
-
+<% } %>
+<% if (retina) { %>
     clean: {
       uinormal: {
         src: ['img/ui/normal/']
       }
     },
-
-    <% } %>
-
-    notify_hooks: {
+<% } %>
+notify_hooks: {
       options: {
         enabled: true,
         max_jshint_notifications: 5, // maximum number of notifications from jshint output
@@ -210,20 +204,24 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-remove-logging');
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-jscs-checker');
-  <%if (retina) { %>
+<%if (retina) { %>
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  <% } %>
-  <%if (sprite) { %>
+<% } %>
+<%if (sprite) { %>
   grunt.loadNpmTasks('grunt-spritesmith');
-  <% } %>
-  <%if (base64) { %>
+<% } %>
+<%if (base64) { %>
   grunt.loadNpmTasks('grunt-image-embed');
-  <% } %>
+<% } %>
 
   // This is required if you use any options.
   grunt.task.run('notify_hooks');
 
-  grunt.registerTask('default',[<%= retina ? "'clean','responsive_images'," : ""%><%= sprite ? "'sprite'," : ""%>'jshint','jscs',<%= base64 ? "'imageEmbed'," : ""%>'compass','concat','watch']);
-  grunt.registerTask('dist', ['jshint','uglify','jscs','compass','concat','cssmin']);
+  grunt.registerTask('default',[
+  <%= retina ? "'clean', 'responsive_images', " : ""%>
+  <%= sprite ? "'sprite', " : ""%>'jshint', 'jscs',
+  <%= base64 ? "'imageEmbed', " : ""%>'compass', 'concat', 'watch']);
+  grunt.registerTask('dist', ['jshint', 'uglify', 'jscs', 'compass', 'concat',
+  'cssmin']);
 };
