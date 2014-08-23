@@ -1,47 +1,65 @@
-# generator-atwinta [![Build Status](https://secure.travis-ci.org/exdis/generator-atwinta.png?branch=master)](https://travis-ci.org/exdis/generator-atwinta)
+Atwinta studio yeoman generator
+====
 
-> [Yeoman](http://yeoman.io) generator
+Генератор для студии [Атвинта](http://atwinta.ru).
 
+Включает в себя:
+* Require.js
+* Watch/LiveReload
+* SASS/Compass
+* Минификацию css/js
+* Локальный веб-сервер
+* Линтер JavaScript
+* Проверку код-стайла JavaScript
+* Поддержку изображений
+  * Поддержку спрайтов
+  * Поддержку base64-кодирования изображений
+  * Поддержку ретина-изображений
+* Тесты Mocha, Chai, Sinon (требуется PhantomJS)
 
-## Getting Started
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```bash
-$ npm install -g yo
+Структура проекта
+```
+project
+├── css
+|   ├── style.css
+|   └── style.min.css
+├── img
+|   ├── base64
+|   └── ui
+|       ├── normal
+|       └── retina
+├── js
+|   └── lib
+├── sass
+├── sprites
+├── stylesheets
+└── test
 ```
 
-### Yeoman Generators
+В папке **css** скомпилированные, сконкатенированные стили. 
 
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
+В папке **img/base64** в файле **base64.css** правила для кодирования изображений в base64, эти правила будут добавлены в основной стиль. В папке **ui** изображения, из которых будет склеен спрайт. Если поддержка ретина-дисплеев включена, то изображения в двойном масштабе следует складывать в папку **retina**.
 
-To install generator-atwinta from npm, run:
+В папке **js** клиентский JavaScript. В **js/lib** установленные бовером компоненты.
 
+В папке **sass** иснодники стилей.
+
+В папке **sprites** миксинги спрайтов.
+
+В папке **stylesheets** стили, которые будут слиты в главный стилевой файл.
+
+В папке **test** тесты.
+
+###### Grunt команды
+Основной workflow:
 ```bash
-$ npm install -g generator-atwinta
+$ grunt
 ```
-
-Finally, initiate the generator:
-
+Сжатие для продакшна:
 ```bash
-$ yo atwinta
+$ grunt dist
 ```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
-
-
-## License
-
-MIT
+Тестирование
+```bash
+$ grunt test
+```
