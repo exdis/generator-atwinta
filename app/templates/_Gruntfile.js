@@ -73,21 +73,21 @@ module.exports = function(grunt) {
     watch : {
       scripts : {
         files : ['js/*.js', '!js/lib/**/*.js', '!js/*.min.js'],
-        tasks : ['jshint', 'jscs', 'uglify'],
+        tasks : ['jshint', 'jscs'],
         options: {
           livereload: true,
         }
       },
       sass : {
         files : ['sass/*'],
-        tasks : ['compass', 'concat', 'cssmin'],
+        tasks : ['compass', 'concat'],
         options: {
           livereload: true,
         }
       },
       css : {
         files : ['src/css/*.css'],
-        tasks : ['concat','cssmin'],
+        tasks : ['concat'],
         options: {
           livereload: true,
         }
@@ -104,7 +104,7 @@ module.exports = function(grunt) {
 <% if (base64) { %>
       base64 : {
         files : ['img/base64/base64.css'],
-        tasks : ['imageEmbed', 'concat', 'cssmin', 'comapss'],
+        tasks : ['imageEmbed', 'concat'],
         options: {
           livereload: true,
         }
@@ -222,6 +222,6 @@ notify_hooks: {
   <%= retina ? "'clean', 'responsive_images', " : ""%>
   <%= sprite ? "'sprite', " : ""%>'jshint', 'jscs',
   <%= base64 ? "'imageEmbed', " : ""%>'compass', 'concat', 'watch']);
-  grunt.registerTask('dist', ['jshint', 'uglify', 'jscs', 'compass', 'concat',
+  grunt.registerTask('dist', ['jshint', 'jscs', 'uglify', 'compass', 'concat',
   'cssmin']);
 };
