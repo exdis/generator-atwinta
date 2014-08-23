@@ -116,6 +116,8 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     if (this.tests) {
       gruntDeps['mocha'] = 'latest';
       gruntDeps['chai'] = 'latest';
+      gruntDeps['sinon'] = 'latest';
+      gruntDeps['sinon-chai'] = 'latest';
       gruntDeps['grunt-mocha-phantomjs'] = 'latest';
     }
     var pkg = {
