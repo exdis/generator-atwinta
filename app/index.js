@@ -32,6 +32,11 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       name: 'images',
       message: 'Включить поддержку обработки изображений?',
       default: false
+    }, {
+      type: 'confirm',
+      name: 'test',
+      message: 'Включить поддержку тестов?',
+      default: false
     }];
 
     this.prompt(prompts, function (props) {
@@ -69,10 +74,6 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
           name: 'Retina-ready',
           value: 'retina',
           checked: false
-        }, {
-          name: 'Тесты',
-          values: 'tests',
-          checked: false
         }]
       }];
 
@@ -82,7 +83,6 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
         this.sprite = hasFeature('sprite');
         this.base64 = hasFeature('base64');
         this.retina = hasFeature('retina');
-        this.tests = hasFeature('tests');
 
         done();
       }.bind(this));
@@ -164,19 +164,20 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     }
   },
 
-  app: function () {
-    this.copy('_.hgignore', '.hgignore');
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
-    this.copy('_index.html', 'index.html');
-  },
-
   tests: function() {
     if (this.tests) {
       this.mkdir('test');
       this.copy('test/_test.html', 'test/test.html');
       this.copy('test/_test.js', 'test/test.js');
     }
+  },
+
+  app: function () {
+    this.copy('_.hgignore', '.hgignore');
+    this.copy('_Gruntfile.js', 'Gruntfile.js');
+    this.copy('_index.html', 'index.html');
   }
+
 });
 
 module.exports = AtwintaGenerator;

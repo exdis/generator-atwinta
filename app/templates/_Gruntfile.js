@@ -186,7 +186,12 @@ module.exports = function(grunt) {
       }
     },
 <% } %>
-notify_hooks: {
+<% if (tests) { %>
+    mocha_phantomjs: {
+      all: ['test/**/*.html']
+    },
+<% } %>
+    notify_hooks: {
       options: {
         enabled: true,
         max_jshint_notifications: 5, // maximum number of notifications from jshint output
