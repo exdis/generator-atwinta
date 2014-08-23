@@ -214,6 +214,9 @@ notify_hooks: {
 <%if (base64) { %>
   grunt.loadNpmTasks('grunt-image-embed');
 <% } %>
+<%if (tests) { %>
+  grunt.loadNpmTasks('grunt-mocha-phantomjs');
+<% } %>
 
   // This is required if you use any options.
   grunt.task.run('notify_hooks');
@@ -224,4 +227,7 @@ notify_hooks: {
   <%= base64 ? "'imageEmbed', " : ""%>'compass', 'concat', 'watch']);
   grunt.registerTask('dist', ['jshint', 'jscs', 'uglify', 'compass', 'concat',
   'cssmin']);
+  <%if (tests) { %>
+  grunt.registerTask('test', ['mocha_phantomjs']);
+  <% } %>
 };

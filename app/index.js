@@ -69,6 +69,10 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
           name: 'Retina-ready',
           value: 'retina',
           checked: false
+        }, {
+          name: 'Тесты',
+          values: 'tests',
+          checked: false
         }]
       }];
 
@@ -78,6 +82,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
         this.sprite = hasFeature('sprite');
         this.base64 = hasFeature('base64');
         this.retina = hasFeature('retina');
+        this.tests = hasFeature('tests');
 
         done();
       }.bind(this));
@@ -107,6 +112,11 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     if (this.retina) {
       gruntDeps['grunt-contrib-clean'] = 'latest';
       gruntDeps['grunt-responsive-images'] = 'latest';
+    }
+    if (this.tests) {
+      gruntDeps['mocha'] = 'latest';
+      gruntDeps['chai'] = 'latest';
+      gruntDeps['grunt-mocha-phantomjs'] = 'latest';
     }
     var pkg = {
       'name': projectName,
@@ -158,6 +168,14 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     this.copy('_.hgignore', '.hgignore');
     this.copy('_Gruntfile.js', 'Gruntfile.js');
     this.copy('_index.html', 'index.html');
+  },
+
+  tests: function() {
+    if (this.tests) {
+      this.mkdir('test');
+      this.copy('test/_test.html', 'test/test.html');
+      this.copy('test/_test.js', 'test/test.js');
+    }
   }
 });
 
