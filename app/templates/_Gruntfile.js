@@ -80,7 +80,7 @@ module.exports = function(grunt) {
       },
       sass : {
         files : ['sass/*'],
-        tasks : ['compass', 'concat'],
+        tasks : ['csscomb', 'compass', 'concat'],
         options: {
           livereload: true,
         }
@@ -126,6 +126,14 @@ module.exports = function(grunt) {
 
     jscs : {
       main : ['js/*.js', '!js/lib/**.js', '!js/*.min.js']
+    },
+    csscomb: {
+      scss: {
+        expand: true,
+        cwd: 'sass/',
+        src: ['*.scss'],
+        dest: 'sass/'
+      }
     },
   
 <% if (retina) { %>
@@ -209,6 +217,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-remove-logging');
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-jscs-checker');
+  grunt.loadNpmTasks('grunt-csscomb');
 <%if (retina) { %>
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -229,7 +238,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default',[
   <%= retina ? "'clean', 'responsive_images', " : ""%>
   <%= sprite ? "'sprite', " : ""%>'jshint', 'jscs',
-  <%= base64 ? "'imageEmbed', " : ""%>'compass', 'concat', 'watch']);
+  <%= base64 ? "'imageEmbed', " : ""%>'csscomb', 'compass', 'concat', 'watch']);
   grunt.registerTask('dist', ['jshint', 'jscs', 'uglify', 'compass', 'concat',
   'cssmin']);
   <%if (tests) { %>
