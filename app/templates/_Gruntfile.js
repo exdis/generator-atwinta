@@ -135,6 +135,14 @@ module.exports = function(grunt) {
         dest: 'sass/'
       }
     },
+    connect: {
+      server: {
+        options: {
+          port: 3000,
+          livereload: true
+        }
+      }
+    },
   
 <% if (retina) { %>
     responsive_images: {
@@ -218,6 +226,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-jscs-checker');
   grunt.loadNpmTasks('grunt-csscomb');
+  grunt.loadNpmTasks('grunt-contrib-connect');
 <%if (retina) { %>
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -238,7 +247,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default',[
   <%= retina ? "'clean', 'responsive_images', " : ""%>
   <%= sprite ? "'sprite', " : ""%>'jshint', 'jscs',
-  <%= base64 ? "'imageEmbed', " : ""%>'csscomb', 'compass', 'concat', 'watch']);
+  <%= base64 ? "'imageEmbed', " : ""%>'csscomb', 'compass', 'concat', 'connect', 'watch']);
   grunt.registerTask('dist', ['jshint', 'jscs', 'uglify', 'compass', 'concat',
   'cssmin']);
   <%if (tests) { %>
