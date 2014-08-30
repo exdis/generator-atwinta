@@ -44,6 +44,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       this.projectPackage =
       props.project.replace(/[^\w\s]/gi, '').toLowerCase().split(' ').join('-');
       this.images = props.images;
+      this.tests = props.test;
       if (!props.images) {
         this.sprite = false;
         this.base64 = false;
