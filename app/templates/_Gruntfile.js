@@ -30,7 +30,7 @@ module.exports = function(grunt) {
 
     concat: {
       css : {
-        src: ['stylesheets/*', 'src/css/*'],
+        src: ['stylesheets/*', 'src/css/*', '!stylesheets/*.map'],
         dest: 'css/style.css'
       }
     },
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
     cssmin: {
       with_banner : {
         options : {
-          banner : '/* Styles for <%= pkg.name %> */',
+          banner : '/* Styles for <%%= pkg.name %> */',
         },
         files : {
           'css/style.min.css' : ['src/css/*', 'stylesheets/*']
@@ -65,7 +65,8 @@ module.exports = function(grunt) {
     compass: {
       dist: {
         options: {
-          config: 'config.rb'
+          config: 'config.rb',
+          sourcemap: true
         }
       }
     },
@@ -80,7 +81,7 @@ module.exports = function(grunt) {
       },
       sass : {
         files : ['sass/*'],
-        tasks : ['csscomb', 'compass', 'concat'],
+        tasks : ['csscomb', 'compass', 'concat', 'copy'],
         options: {
           livereload: true,
         }
@@ -141,6 +142,17 @@ module.exports = function(grunt) {
           port: 3000,
           livereload: true
         }
+      }
+    },
+    copy: {
+      main: {
+        files: [{
+          expand: true,
+          flatten: true,
+          src: ['stylesheets/*.map'],
+          dest: 'css/',
+          filter: 'isFile'
+        }]
       }
     },
   
@@ -227,6 +239,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-jscs-checker');
   grunt.loadNpmTasks('grunt-csscomb');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 <%if (retina) { %>
   grunt.loadNpmTasks('grunt-responsive-images');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -247,9 +260,9 @@ module.exports = function(grunt) {
   grunt.registerTask('default',[
   <%= retina ? "'clean', 'responsive_images', " : ""%>
   <%= sprite ? "'sprite', " : ""%>'jshint', 'jscs',
-  <%= base64 ? "'imageEmbed', " : ""%>'csscomb', 'compass', 'concat', 'connect', 'watch']);
+  <%= base64 ? "'imageEmbed', " : ""%>'csscomb', 'compass', 'concat', 'copy', 'connect', 'watch']);
   grunt.registerTask('dist', ['jshint', 'jscs', 'uglify', 'compass', 'concat',
-  'cssmin']);
+  'copy', 'cssmin']);
   <%if (tests) { %>
   grunt.registerTask('test', ['mocha_phantomjs']);
   <% } %>

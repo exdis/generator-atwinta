@@ -104,7 +104,8 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       'grunt-remove-logging' : 'latest',
       'grunt-jscs-checker' : 'latest',
       'grunt-csscomb' : 'latest',
-      'grunt-contrib-connect' : 'latest'
+      'grunt-contrib-connect' : 'latest',
+      'grunt-contrib-copy' : 'latest'
     };
     if (this.sprite) {
       gruntDeps['grunt-spritesmith'] = 'latest';
