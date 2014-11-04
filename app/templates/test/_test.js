@@ -1,5 +1,9 @@
 //Simple test
-define(['app','jquery'], function(require, $) {
+define([
+  'app',
+  'jquery',
+  'sinon'
+], function(require, $, sinon) {
   var p;
   var domReady = sinon.spy();
   $(document).ready(domReady);

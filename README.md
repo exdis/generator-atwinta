@@ -15,7 +15,7 @@ Atwinta studio yeoman generator
   * Поддержку спрайтов
   * Поддержку base64-кодирования изображений
   * Поддержку ретина-изображений
-* Тесты Mocha, Chai, Sinon (требуется PhantomJS)
+* Тесты Mocha, Chai, Sinon (требуется установленная PhantomJS и mocha-phantomjs)
 
 Структура проекта
 ```
