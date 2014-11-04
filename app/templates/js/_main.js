@@ -1,8 +1,7 @@
 requirejs.config({
-  baseUrl: 'js/lib',
+  baseUrl: 'js/',
   paths: {
-    'app': '../app',
-    'jquery': 'jquery/dist/jquery.min'
+    'jquery': 'lib/jquery/dist/jquery.min'
   },
   //"shim": {
     //"jquery.alpha": ["jquery"],
@@ -10,4 +9,13 @@ requirejs.config({
   //}
 });
 
-requirejs(['app']);
+var modules = [];
+var scripts = document.getElementsByTagName('script');
+for (var i = 0, l = scripts.length; i < l; i++) {
+  if (scripts[i].getAttribute('data-modules')) {
+    modules = scripts[i].getAttribute('data-modules').split(',');
+    break;
+  }
+}
+
+requirejs(modules);
