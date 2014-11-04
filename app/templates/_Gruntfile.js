@@ -76,45 +76,43 @@ module.exports = function(grunt) {
         files : ['js/*.js', '!js/lib/**/*.js', '!js/*.min.js'],
         tasks : ['jshint', 'jscs'],
         options: {
-          livereload: true,
+          nospawn: true,
+          interrupt: true
         }
       },
       sass : {
         files : ['sass/*'],
         tasks : ['csscomb', 'compass', 'concat', 'copy'],
         options: {
-          livereload: true,
+          livereload: false,
         }
       },
       css : {
         files : ['src/css/*.css'],
-        tasks : ['concat'],
-        options: {
-          livereload: true,
-        }
+        tasks : ['concat']
       },
 <% if (images) { %>
       images : {
         files : ['img/ui/<%= retina ? "normal/" : ""%>*.png'],
-        tasks : [<%= retina ? "'clean', 'responsive_images', " : ""%><%= sprite ? "'sprite'" : ""%>],
-        options: {
-          livereload: true,
-        }
+        tasks : [<%= retina ? "'clean', 'responsive_images', " : ""%><%= sprite ? "'sprite'" : ""%>]
       },
 <% } %>
 <% if (base64) { %>
       base64 : {
         files : ['img/base64/base64.css'],
-        tasks : ['imageEmbed', 'concat'],
-        options: {
-          livereload: true,
-        }
+        tasks : ['imageEmbed', 'concat']
       },
 <% } %>
-      html : {
-        files : ['**/*.html'],
+      livereload : {
+        files : [
+          '*.html',
+          'css/*.css',
+          'js/**/*.js',
+          '!js/lib/**/*.js',
+          '!js/**/*.min.js'
+        ],
         options: {
-          livereload: true,
+          livereload: true
         }
       }
     },
