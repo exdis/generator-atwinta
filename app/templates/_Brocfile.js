@@ -3,12 +3,14 @@ var compileSass = require('broccoli-compass');
 var concat = require('broccoli-concat');
 var pickFiles = require('broccoli-static-compiler');
 var jshintTree = require('broccoli-jshint');
+var jscsTree = require('broccoli-jscs');
 
 var path = __dirname;
 var html = 'public';
 var sass = 'sass';
 
 var jsLinted = jshintTree('js');
+jsLinted = jscsTree('js');
 
 var js = pickFiles('js', {
   srcDir: '.',

@@ -133,7 +133,8 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       'broccoli-merge-trees': 'latest',
       'broccoli-concat': 'latest',
       'broccoli-static-compiler': 'latest',
-      'broccoli-jshint': 'latest'
+      'broccoli-jshint': 'latest',
+      'broccoli-jscs': 'latest'
     };
     var pkg = {
       'name': projectName,
