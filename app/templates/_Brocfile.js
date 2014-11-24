@@ -2,15 +2,22 @@ var mergeTrees = require('broccoli-merge-trees');
 var compileSass = require('broccoli-compass');
 var concat = require('broccoli-concat');
 var pickFiles = require('broccoli-static-compiler');
+var jshintTree = require('broccoli-jshint');
 
 var path = __dirname;
 var html = 'public';
 var sass = 'sass';
 
+var jsLinted = jshintTree('js');
+
 var js = pickFiles('js', {
   srcDir: '.',
-  files: ['**/*.js', '!**/*.min.js', '!lib/**/*.js'],
   destDir: '/js'
+});
+
+var vendors = pickFiles('vendors', {
+  srcDir: '.',
+  destDir: '/js/lib'
 });
 
 var compassTree = compileSass(sass, {
@@ -28,6 +35,5 @@ var css = concat('stylesheets', {
   ],
   outputFile: '/css/style.css'
 });
-console.log(css);
 
-module.exports = mergeTrees([compassTree, html, css, js]);
+module.exports = mergeTrees([compassTree, html, css, js, jsLinted, vendors]);
