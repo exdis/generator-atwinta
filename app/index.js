@@ -89,9 +89,10 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       }.bind(this));
     }
   },
-
+  
   packageJson: function () {
     var projectName = this.projectPackage;
+    /*
     var gruntDeps = {
       'grunt' : 'latest',
       'grunt-notify' : 'latest',
@@ -124,10 +125,19 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       gruntDeps['sinon-chai'] = 'latest';
       gruntDeps['grunt-mocha-phantomjs'] = 'latest';
     }
+    */
+    var brocDeps = {
+      'broccoli': 'latest',
+      'broccoli-compass': 'latest',
+      'rimraf': 'latest',
+      'broccoli-merge-trees': 'latest',
+      'broccoli-concat': 'latest',
+      'broccoli-static-compiler': 'latest'
+    };
     var pkg = {
       'name': projectName,
       'version': '0.0.1',
-      'devDependencies': gruntDeps
+      'devDependencies': brocDeps
     }
     this.write('package.json', JSON.stringify(pkg));
   },
@@ -135,7 +145,6 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
   sass: function () {
     this.mkdir('sass');
     this.copy('sass/_screen.scss', 'sass/screen.scss');
-    this.copy('_config.rb', 'config.rb');
   },
 
   stylesheets: function() {
@@ -181,8 +190,9 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
 
   app: function () {
     this.copy('_.hgignore', '.hgignore');
-    this.copy('_Gruntfile.js', 'Gruntfile.js');
-    this.copy('_index.html', 'index.html');
+    this.copy('_Brocfile.js', 'Brocfile.js');
+    this.mkdir('public');
+    this.copy('_index.html', 'public/index.html');
   }
 
 });
