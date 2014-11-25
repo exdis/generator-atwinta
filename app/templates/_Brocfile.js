@@ -10,7 +10,7 @@ var html = 'public';
 var sass = 'sass';
 
 var jsLinted = jshintTree('js');
-jsLinted = jscsTree('js');
+var jsStyled = jscsTree('js');
 
 var js = pickFiles('js', {
   srcDir: '.',
@@ -38,4 +38,4 @@ var css = concat('stylesheets', {
   outputFile: '/css/style.css'
 });
 
-module.exports = mergeTrees([compassTree, html, css, js, jsLinted, vendors]);
+module.exports = mergeTrees([compassTree, html, css, js, jsLinted, jsStyled, vendors]);
