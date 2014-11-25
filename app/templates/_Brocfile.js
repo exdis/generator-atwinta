@@ -9,7 +9,7 @@ var path = __dirname;
 var html = 'public';
 var sass = 'sass';
 
-var jsLinted = jshintTree('js');
+var jsLinted = jshintTree('js', {breakBuild: true});
 var jsStyled = jscsTree('js');
 
 var js = pickFiles('js', {
