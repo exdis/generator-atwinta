@@ -9,7 +9,25 @@ var path = __dirname;
 var html = 'public';
 var sass = 'sass';
 
-var jsLinted = jshintTree('js', {breakBuild: true});
+jshintTree.prototype.testGenerator = function(relativePath, passed, errors) {
+  if (errors) {
+    throw {
+      message: 'JSHint error',
+      file: passed,
+      stack: errors
+    }
+  }
+};
+var jsLinted = jshintTree('js');
+
+jscsTree.prototype.testGenerator = function(relativePath, errors) {
+  if (errors) {
+    throw {
+      message: 'JS CodeStyle error',
+      stack: errors
+    }
+  }
+};
 var jsStyled = jscsTree('js');
 
 var js = pickFiles('js', {
