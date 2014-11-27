@@ -32,14 +32,14 @@ jshintTree.prototype.testGenerator = function(relativePath, passed, errors) {
 
 jscsTree.prototype.testGenerator = function(relativePath, errors) {
   if (errors) {
-    errors = "\\n" + this.escapeErrorString(errors);
+    errors = this.escapeErrorString('\n' + errors);
   } else {
     errors = ""
   }
 
   test = 'define(function() {' +
-           'describe("JSHint", function() {' +
-             'it("JS should pass JSHint", function() {' +
+           'describe("JSCS", function() {' +
+             'it("JS should pass JSCS", function() {' +
                'expect("' + errors + '").to.be.empty;' +
              '});' +
            '});' +
