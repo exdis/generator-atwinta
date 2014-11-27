@@ -14,7 +14,7 @@ function (require, chai) {
   expect = chai.expect;
   mocha.setup('bdd');
 
-  require(['test'], function(require) {
+  require(['test', 'jshint', 'jscs'], function(require) {
     // Start runner
     if (window.mochaPhantomJS) {
       mochaPhantomJS.run();

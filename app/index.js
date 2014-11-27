@@ -190,6 +190,8 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       this.copy('test/_test.html', 'test/test.html');
       this.copy('test/_starter.js', 'test/starter.js');
       this.copy('test/_test.js', 'test/test.js');
+      this.copy('test/_jshint.js', 'test/jshint.js');
+      this.copy('test/_jscs.js', 'test/jscs.js');
     }
   },
 

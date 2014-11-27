@@ -5,9 +5,48 @@ var pickFiles = require('broccoli-static-compiler');
 var jshintTree = require('broccoli-jshint');
 var jscsTree = require('broccoli-jscs');
 
+
 var path = __dirname;
 var html = 'public';
 var sass = 'sass';
+
+<% if (tests) { %>
+
+var fs = require('fs');
+jshintTree.prototype.testGenerator = function(relativePath, passed, errors) {
+  if (errors) {
+    errors = "\\n" + this.escapeErrorString(errors);
+  } else {
+    errors = ""
+  }
+
+  test = 'define(function() {' +
+           'describe("JSHint", function() {' +
+             'it("JS should pass JSHint", function() {' +
+               'expect("' + errors + '").to.be.empty;' +
+             '});' +
+           '});' +
+         '});';
+  fs.writeFile('test/jshint.js', test); 
+}
+
+jscsTree.prototype.testGenerator = function(relativePath, errors) {
+  if (errors) {
+    errors = "\\n" + this.escapeErrorString(errors);
+  } else {
+    errors = ""
+  }
+
+  test = 'define(function() {' +
+           'describe("JSHint", function() {' +
+             'it("JS should pass JSHint", function() {' +
+               'expect("' + errors + '").to.be.empty;' +
+             '});' +
+           '});' +
+         '});';
+  fs.writeFile('test/jscs.js', test); 
+}
+<% } else { %>
 
 jshintTree.prototype.testGenerator = function(relativePath, passed, errors) {
   if (errors) {
@@ -18,7 +57,6 @@ jshintTree.prototype.testGenerator = function(relativePath, passed, errors) {
     }
   }
 };
-var jsLinted = jshintTree('js');
 
 jscsTree.prototype.testGenerator = function(relativePath, errors) {
   if (errors) {
@@ -28,6 +66,10 @@ jscsTree.prototype.testGenerator = function(relativePath, errors) {
     }
   }
 };
+
+<% } %>
+
+var jsLinted = jshintTree('js');
 var jsStyled = jscsTree('js');
 
 var js = pickFiles('js', {
