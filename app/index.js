@@ -131,6 +131,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     };
     if (this.tests) {
       brocDeps['mocha'] = 'latest';
+      brocDeps['mocha-phantomjs'] = 'latest';
       brocDeps['chai'] = 'latest';
       brocDeps['sinon'] = 'latest';
       brocDeps['sinon-chai'] = 'latest';
@@ -139,7 +140,7 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       'name': projectName,
       'version': '0.0.1',
       'scripts': {
-        'test': 'mocha-phantomjs test/test.html'
+        'test': './node_modules/mocha-phantomjs/bin/mocha-phantomjs test/test.html'
       },
       'devDependencies': brocDeps
     }
