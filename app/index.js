@@ -118,13 +118,6 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       gruntDeps['grunt-contrib-clean'] = 'latest';
       gruntDeps['grunt-responsive-images'] = 'latest';
     }
-    if (this.tests) {
-      gruntDeps['mocha'] = 'latest';
-      gruntDeps['chai'] = 'latest';
-      gruntDeps['sinon'] = 'latest';
-      gruntDeps['sinon-chai'] = 'latest';
-      gruntDeps['grunt-mocha-phantomjs'] = 'latest';
-    }
     */
     var brocDeps = {
       'broccoli': 'latest',
@@ -136,9 +129,18 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
       'broccoli-jshint': 'latest',
       'broccoli-jscs': 'latest'
     };
+    if (this.tests) {
+      brocDeps['mocha'] = 'latest';
+      brocDeps['chai'] = 'latest';
+      brocDeps['sinon'] = 'latest';
+      brocDeps['sinon-chai'] = 'latest';
+    }
     var pkg = {
       'name': projectName,
       'version': '0.0.1',
+      'scripts': {
+        'test': 'mocha-phantomjs test/test.html'
+      },
       'devDependencies': brocDeps
     }
     this.write('package.json', JSON.stringify(pkg));

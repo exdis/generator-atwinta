@@ -1,22 +1,15 @@
 //Simple test
 define([
   'app',
-  'jquery',
-  'sinon'
-], function(require, $, sinon) {
+  'jquery'
+], function(require, $) {
   var p;
-  var domReady = sinon.spy();
-  $(document).ready(domReady);
   describe('DOM tests', function() {
     before(function(done) {
       $(document).ready(function() {
         p = document.querySelector('p');
         done();
       });
-    });
-
-    it('Dom.ready() should be called', function() {
-      expect(domReady).to.have.been.calledOnce;
     });
     it('true === true', function() {
       expect(true).to.be.true;
