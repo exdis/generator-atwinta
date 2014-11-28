@@ -42,7 +42,8 @@ var AtwintaGenerator = yeoman.generators.Base.extend({
     this.prompt(prompts, function (props) {
       this.project = props.project;
       this.projectPackage =
-      props.project.replace(/[^\w\s]/gi, '').toLowerCase().split(' ').join('-');
+        this.project ? this.project.replace(/[^\w\s]/gi, '')
+          .toLowerCase().split(' ').join('-') : 'atwinta-new-project';
       this.images = props.images;
       this.tests = props.test;
       if (!props.images) {

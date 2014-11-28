@@ -20,8 +20,11 @@ describe('atwinta generator', function () {
   it('creates expected files', function (done) {
     var expected = [
       // add files you expect to exist here.
-      '.jshintrc',
-      '.editorconfig'
+      'bower.json',
+      '.bowerrc',
+      'Brocfile.js',
+      'public/index.html',
+      '.jscsrc'
     ];
 
     helpers.mockPrompt(this.app, {
